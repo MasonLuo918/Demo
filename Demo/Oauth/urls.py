@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from . import views as Oauth_views
+from .import views as Oauth_views
 
 app_name = "Oauth"
 

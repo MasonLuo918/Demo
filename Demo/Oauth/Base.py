@@ -1,7 +1,8 @@
-import json
+﻿import json
 import urllib
 import re
-
+import time
+from django.http import JsonResponse,HttpResponse
 class Oauth_Base(object):
     #绑定对应第三方应用的App_id,App_key和redireci_url
     def __init__(self,client_id,cliend_key,redireci_url):
@@ -15,7 +16,7 @@ class Oauth_Base(object):
         return response.read()
 
     def _post(self,url,data):
-        request = urllib.request.Request(url=url,data=urllib.parse.urlencode(data).encode("UTF8"))
+        request = urllib.request.Request(url=url,data=urllib.parse.urlencode(data).encode("utf-8"))
         response = urllib.request.urlopen(request)
         return response.read()
 
@@ -55,10 +56,10 @@ class Oauth_yiban(Oauth_Base):
         url = 'https://openapi.yiban.cn/oauth/access_token'
         response = self._post(url,params)
         result = json.loads(response.decode('utf-8'))
+        print(result)
         self.access_token = result['access_token']
         self.openid = result['userid']
         return self.access_token
-
     def get_open_id(self):
         return self.openid
 
