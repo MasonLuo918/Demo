@@ -1,4 +1,4 @@
-﻿{% load staticfiles %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
 <!-- 开发者的css设定 -->
  <link rel="stylesheet" href="{% static 'css/myselfcss.css' %}">
+
 
 <style>
  html{
@@ -84,7 +85,7 @@ input
      <div class="row text-center">
          <div class="col-md-3"></div>
          <div class="col-md-6 Advice">
-        <h1>注册成功</h1>
+        <h1>激活成功</h1>
          <p>恭喜你激活成功，点击<a href="{% url 'account:login' %}">登录</a> 账号或者返回<a href="/home">主页</a> </p>
          </div>
      </div>

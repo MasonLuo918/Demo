@@ -9,7 +9,7 @@ class College(models.Model):
 
 class Userprofile(models.Model):
 
-    RealName = models.CharField(max_length=20)
+    RealName = models.CharField(max_length=20,null=True)
     Schoolid = models.CharField(max_length=12,unique=True,null=True)
     college = models.ForeignKey(College,blank=True,null=True,related_name="college_user")
     user = models.OneToOneField(User,unique=True)

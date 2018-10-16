@@ -24,6 +24,7 @@ SECRET_KEY = '0p_n@)a6%ux0)7rdref5%s8!(9*6x9!^etg%htmi_$715x+*yq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+
 ALLOWED_HOSTS = ['127.0.0.1','localhost','.masonluo.online','120.77.152.163']
 
 
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'video',
     'comment',
     "password_reset",
+    "Oauth",
 
 ]
 
@@ -123,9 +125,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATICFILES_DIRS = (
+# STATICFILES_DIRS = (
 # os.path.join(BASE_DIR,"static"),
-#)
+# )
 STATIC_ROOT = os.path.join(BASE_DIR,"static")
 LOGIN_REDIRECT_URL = '/home/'
 EMAIL_HOST = "smtp.qq.com"
@@ -139,3 +141,10 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 #dsnhjemcsncebdhf
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+#第三方应用app_id 和 app_key
+
+#易班
+YIBAN_APP_ID = "01192596e5751f67"
+YIBAN_APP_KEY = "ba8505c215cecfac50835615d7b54720"
+YIBAN_REDIRECT_URL = "http://127.0.0.1:8080/oauth/yiban_check"

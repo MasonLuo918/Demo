@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^video/',include("video.urls")),
     url(r'^comment/',include("comment.urls")),
     url(r'^pwd_reset/',include("password_reset.urls",namespace="pwd_reset",app_name="pwd_reset")),
+    url(r'^oauth/',include("Oauth.urls")),
 ]
 urlpatterns += static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
