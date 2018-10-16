@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+       <form action="." method="post">
+           {% csrf_token %}
+           <div>
+           <label for="{{ comment.commentor.id_for_label }}">评论人:</label>
+           {{ comment.commentor }}
+           {{ comment.commentor.errors }}</div>
+           <div>
+           <label for="{{ comment.body.id_for_label }}">评论:</label>
+           {{ comment.body }}
+           {{ comment.body.errors }}</div>
+           <input type="submit" value="提交">
+       </form>
+
+</body>
+</html>

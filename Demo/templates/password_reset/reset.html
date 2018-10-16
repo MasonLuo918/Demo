@@ -1,0 +1,112 @@
+{% load staticfiles %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>登录</title>
+    <!-- 新 Bootstrap4 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+<script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <!--Font Awesome 图标文件 -->
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+<!-- 开发者的css设定 -->
+ <link rel="stylesheet" href="{% static 'css/myselfcss.css' %}">
+
+<style>
+ html{
+            width:100%;
+            height: 100%;
+}
+body{
+
+    padding: 0;
+    margin: 0;
+    width:100%;
+    height:100%;
+    background: url("{% static 'Image/BackGround.JPG' %}") no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+
+}
+.Size
+{
+    width:100%;
+    height:100%;
+}
+.FormStyle
+{
+    background-color: white;
+    width:100%;
+    height:100%;
+    font-family:华文新魏;
+    font-size:1.2rem;
+}
+input
+{
+    width:60%;
+    height: 100%;
+}
+.group
+{
+  width: 100%;
+  margin:5% auto;
+}
+.Warning{
+    color:red;
+    font-size:0.7rem;
+}
+.Advice
+{
+      font-family:华文新魏;
+      font-size:1.2rem;
+      color:white;
+}
+.Logo
+{
+    width:33%;
+    height: 100%;
+}
+</style>
+
+</head>
+<body>
+ <div class="Size container-fluid">
+     <div class="row" style="height: 20%;"></div>
+     <div class="row text-center" style="height:51%;">
+         <div class="col-md-7">
+         </div>
+         <div class="col-md-3  FormStyle">
+             <br>
+             <div style="margin:4% auto;">
+             <h3>重置密码</h3>
+             <p>请输入你的用户名和邮箱</p>
+                 </div>
+		<p>{% blocktrans %}Hi, <strong>{{ username }}</strong>. Please choose your new password.{% endblocktrans %}</p>
+          	<form method="post" action="{% url "pwd_reset:password_reset_reset" token %}">
+                {% csrf_token %}
+                <div class="Warning"> {{ form.non_field_errors }}</div>
+                 <div class="group">
+                 <input type="password" id="id_password1" name="password1" required placeholder="新密码">
+                 </div>
+                <div class="group">
+                 <input type="password" id="id_password2" name="password2" required placeholder="确认新密码">
+                 </div>
+                 <div class="group">
+                 <button class="btn btn-primary bg-green" style="width: 60%;">设置新密码</button>
+                 </div>
+             </form>
+         </div>
+ </div>
+ </div>
+</body>
+</html>

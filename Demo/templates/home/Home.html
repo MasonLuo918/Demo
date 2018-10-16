@@ -1,0 +1,214 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block style %}
+  <!-- Demo styles -->
+  <style>
+    html, body {
+      position: relative;
+      height: 100%;
+    }
+    body {
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color:#000;
+      margin: 0;
+      padding: 0;
+    }
+    .swiper-container {
+      width: 100%;
+      height: 100%;
+
+    }
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+  </style>
+    {% endblock %}
+  <!-- Swiper -->
+{% block header %} {% include "nav.html" %} {% endblock %}
+{% block content %}
+
+    <div class="row">
+  <div class="swiper-container col-md-12" style="height: 400px;">
+    <div class="swiper-wrapper">
+        {% for Image in Images %}
+      <div class="swiper-slide"><img src="{{ Image.Img.url }}" width="85%" height="90%"> </div>
+        {% endfor %}
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+
+  <!-- Swiper JS -->
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper('.swiper-container', {
+      spaceBetween: 30,
+      centeredSlides: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  </script>
+    </div>
+    <nav class="border margin_0 navbar navbar-expand-md text-center">
+     <ul class="navbar-nav nav-bg-color" style="width: 100%;">
+     <li class="nav-item col-md-2 border"><a href="#"> 首页</a></li>
+     <li class="nav-item col-md-2 border"><a href="#"> 党务工作</a></li>
+     <li class="nav-item col-md-2 border"><a href="#"> 党校书院</a></li>
+     <li class="nav-item col-md-2 border"><a href="{% url 'video:AllVideo' 1 %}"> 党课中心</a></li>
+     <li class="nav-item col-md-2 border"><a href="{% url 'video:AllVideo' 2 %}">中国骄傲</a></li>
+     <li class="nav-item col-md-2 border"><a href="#"> 精品推荐</a></li>
+     <li class="nav-item col-md-2 border"><a href="#">  党校书院</a></li>
+     </ul>
+    </nav>
+    <div class="row" style="margin:10px 0;">
+    <div class="col-md-3 border text-center LoginForm">
+        <h4> 登录 </h4>
+       <hr>
+        <div style="height: 70%; width:100%; ">
+        <form action="{% url 'account:login' %}" method="post">
+            {% csrf_token %}
+            <div class="input-group mb-3" style="margin:10% 4% 4%;" >
+                <div class="input-group-prepend ">
+                    <span class="input-group-text fa fa-male">
+                    </span>
+                </div>
+            <input type="text" placeholder="输入用户名" id="id_username" name="username">
+            </div>
+           <div class="input-group mb-3" style="margin:6% 4%">
+                <div class="input-group-prepend">
+                    <span class="input-group-text fa fa-stack-exchange">
+                    </span>
+                </div>
+            <input type="password" placeholder="输入密码" id="id_password" name="password">
+            </div>
+            <input type="submit"  class="btn btn-primary" style="width:100%;margin:6% auto;">
+        </form>
+             <p><a href="{% url 'pwd_reset:password_reset_recover' %}">忘记密码</a> </p>
+    </div>
+        </div>
+    <div class="col-md-6 border Center">
+      <h4> 学生党务管理委员会</h4>
+        <hr>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist" style="margin:0;padding:0;">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#home">指导老师</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu1">策划部</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu2">秘书部</a>
+    </li>
+      <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu3">宣传部</a>
+    </li>
+      <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu4">培训部</a>
+    </li>
+      <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu5">资料部</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content text-left">
+    <div id="home" class="container tab-pane active"><br>
+      <h3>HOME</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    <div id="menu1" class="container tab-pane fade"><br>
+      <h3>策划部</h3>
+      <p>主要负责学院大型党务活动的策划和整体布置，以加强同学们党性修养，在院党委的领导下，与各部门沟通协调工作，定期举办党知识竞赛、学院有约、最佳团日评选活动、党务团建等党务活动。这些活动保证了学院各支部的组织生活得以正常和健康地开展，调动了广大同学的积极性，开拓了学院与学生交流的平台，同时还增强了党务内部成员间的凝聚力，是学院各种党务活动的开展中的重要纽带。</p>
+    </div>
+    <div id="menu2" class="container tab-pane fade"><br>
+      <h3>秘书部</h3>
+      <p>对外：组织与其他学院党建机构的交流合作。对内：组织开展各党支部的集体支部生活和相关活动，收集各支部党费；组织党务内部会议的召开，参与筹办党务内部团建活动，协助党务各类活动的开展，汇总党务各类公示名单、活动总结及会议记录；传达党务部分信息通知，安排党务的日常值班工作，管理监督党务内部物资经费和党支部评优等工作</p>
+    </div>
+       <div id="menu3" class="container tab-pane fade"><br>
+      <h3>宣传部</h3>
+      <p>负责对党支部组织的相关活动进行跟进宣传，以及学生党员风采的宣传，展现积极向上的数信人形象；负责华农数信党务微信公众号、微博及易班的运营，及时发布学院党建工作信息以及党支部的党建工作；宣传报道党务管理委员会组织的各项活动，包括摄影、海报、推文制作等；设计党务迎新册子、展板，维护院楼、宿舍区党务宣传栏，制作每月一期党务工作简报。</p>
+    </div>
+       <div id="menu4" class="container tab-pane fade"><br>
+      <h3>培训部</h3>
+      <p>负责开展党课以及开展党课期间小组活动；组织党课结业考试的开展、监督，同时进行试卷的批改；负责入党积极分子与发展对象的培训工作，定期开展关于加强党员党性修养的相关学习；党员党课笔记的收集与检查，党员思想汇报收集、整理以及入党考核等工作。</p>
+    </div>
+       <div id="menu5" class="container tab-pane fade"><br>
+      <h3>资料不</h3>
+      <p>指导、培训党务文件书写，并将相关信息录入广东省党务管理系统；组织开展发展对象培训会；负责各种党务统计报表，系统管理各支部资料、档案，收集、整理各部门和支部书记团的工作信息；根据实际的情况适当地制定或修改资料管理的规范或制度；为党建网页和党务系统提供原始材料；负责毕业生党员党组织关系转移工作。</p>
+    </div>
+  </div>
+    </div>
+    <div class="col-md-3 border Right">
+        <h4> 网站介绍 </h4>
+        <hr>
+    </div>
+    </div>
+    <div class="row border" style="margin:0;">
+    <div class="col-md-4 border Area">
+      <h4> 党务工作 </h4>
+        <hr>
+
+    </div>
+     <div class="col-md-8 border Area">
+      <h4> 最近更新 </h4>
+        <hr>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist" style="margin:0;padding:0;">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#News">时事</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#Video">党课视频</a>
+    </li>
+
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div id="News" class="container tab-pane active"><br>
+      <h3>时事</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+    <div id="Video" class="container tab-pane fade"><br>
+      <h3>党课视频</h3>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+  </div>
+      </div>
+    </div>
+{% endblock %}
+{% block footer %}
+{% include "footer.html" %}
+{% endblock %}

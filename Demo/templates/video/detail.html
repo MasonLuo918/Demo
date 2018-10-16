@@ -1,0 +1,120 @@
+{% load staticfiles %}
+{% with total_likes=video.user_like.count user_like=video.user_like.all %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ video.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- swifter 插件文件-->
+    <link rel="stylesheet" href="{% static 'dist/css/swiper.min.css' %}">
+
+     <script src="{% static 'dist/js/swiper.min.js' %}"></script>
+    <!-- -->
+    <link rel="stylesheet" href="{% static 'css/myselfcss.css' %}">
+   <!-- 新 Bootstrap4 核心 CSS 文件 -->
+<!-- 新 Bootstrap4 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+<script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+
+<!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+<!-- 图标文件 -->
+<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+<link href="{% static 'css/index.css' %}" rel="stylesheet" type="text/css"
+</head>
+<body>
+<div class="container-fluid text-center" style="height: 800px; width: 100%">
+ {% include "nav.html" %}
+    <div class="row border" style="height: 100%">
+        <div class="col-md-10">
+         <video src="{{ video.video.url }}" controls="controls" width="100%" height="80%">
+         </video>
+        </div>
+        <div class="col-md-2 comment-area bg-dark" style="height: 80%;">
+        <div class="like text-left text-light">
+            <div class="all_like" ><span class="	fa fa-thumbs-o-up"></span><span id="all_like">{{ total_likes }}</span>like{{ total_likes|pluralize }} </div>
+            <div class="like_or_not">
+                <a href="#" onclick="like_video({{ video.id }},'like')"><span class="fa fa-thumbs-up"></span></a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="#" onclick="like_video({{ video.id }},'unlike')"><span class="fa fa-thumbs-down"></span></a>
+            </div>
+        </div>
+        <br>
+                <div class="input-area">
+                    {% if user.is_authenticated %}
+                     <div class="comment-form" style="background-color: #4898d5;">
+                     <p style="margin:2px ;padding: 0;">评论</p>
+                         <textarea placeholder="请发表你的观点吧~" type="text" style="height:100px;width: 95%;" id="new_comment"></textarea>
+                         <br>
+                    <button onclick="upload_comment({{ video.id }})" type="button" class="btn btn-success">发表</button>
+                        </div>
+                        {% else %}
+                        <div>
+                        <p class="text-light">您还没有登录，请<a href="{% url 'account:login' %}">登录</a>!</p>
+                        </div>
+                    {% endif %}
+                </div>
+          <br>
+            {% for item in Comments %}
+           <div class="bg-light add-border" style="margin:10px auto;padding:5px;">
+           <p class="text-left" style="font-size:0.9rem;margin:0;">用户:<span style="font-size:0.7rem;color:green">{{ item.user.username }}</span></p>
+           <p class="text-left" style="font-size:0.9rem;margin:0;padding:0;">时间:<span style="font-size:0.7rem;color:blue">{{ item.publish_time }}</span></p>
+           <div>
+               <p class="text-left" style="font-size:1.0rem;font-weight: lighter;">{{ item.body }}</p>
+           </div>
+           </div>
+                {% empty %}
+                <p class="text-center text-light">暂时还没有人发表评论~</p>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+ <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/layer.js' %}"></script>
+<script>
+    function upload_comment(video_id){
+                body = $('#new_comment').val();
+                $.ajax({
+                    url:"{% url "comment:upload_comment" %}",
+                    type:"POST",
+                    data:{"body":body,"video_id":video_id},
+                    success:function (e) {
+                        if (e=="1"){
+                            layer.msg("发表成功,审核ing~");
+                             }
+                    else
+                        {
+                            layer.msg("对不起，评论失败。")
+                        }
+                        },
+                });
+    }
+    function like_video(video_id,action) {
+        $.ajax({
+            url:"{% url 'video:like_video' %}",
+            type:"POST",
+            data:{"id":video_id,"action":action},
+            success:function (e) {
+                if (e=="1"){
+                    layer.msg("感谢点赞！");
+                    window.location.reload();
+                }
+                else{
+                    layer.msg("我们会继续努力!");
+                    window.location.reload();
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>
+{% endwith %}
